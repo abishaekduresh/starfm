@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Star FM Admin</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #f4f6f9; display: flex; align-items: center; justify-content: center; height: 100vh; }
+        .card { width: 100%; max-width: 400px; border: none; box-shadow: 0 0 20px rgba(0,0,0,0.1); }
+        .card-header { background: #007bff; color: white; text-align: center; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="card-header py-3">Star FM Admin Panel</div>
+        <div class="card-body p-4">
+            <div id="error-alert" class="alert alert-danger d-none"></div>
+            <form id="loginForm">
+                <div class="mb-3">
+                    <label class="form-label">Email Address</label>
+                    <input type="email" class="form-control" name="email" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Password</label>
+                    <input type="password" class="form-control" name="password" required>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Login</button>
+            </form>
+            <div class="text-center mt-3">
+                <a href="register.html">Create an Account</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/config.js" type="module"></script>
+    <script type="module">
+        import Api from './js/api.js';
+        
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = e.target.email.value;
+            const password = e.target.password.value;
+            const alert = document.getElementById('error-alert');
+
+            const res = await Api.request('/login', 'POST', { email, password });
+            
+            if (res && res.token) {
+                localStorage.setItem('token', res.token);
+                localStorage.setItem('user', JSON.stringify(res.user));
+                window.location.href = 'dashboard.html';
+            } else {
+                alert.textContent = res.error || 'Login failed';
+                alert.classList.remove('d-none');
+            }
+        });
+    </script>
+</body>
+</html>

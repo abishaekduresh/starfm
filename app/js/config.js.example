@@ -1,0 +1,2 @@
+export const API_BASE_URL = '/domain.com/backend/public/api';
+export const ASSETS_URL = '/domain.com/backend/public/';

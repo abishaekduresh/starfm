@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Channel - Star FM Admin</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body { display: flex; min-height: 100vh; background: #f8f9fa; }
+        .sidebar { width: 250px; background: #343a40; color: white; min-height: 100vh; position: fixed; }
+        .sidebar a { color: rgba(255,255,255,0.8); text-decoration: none; display: block; padding: 10px 20px; }
+        .sidebar a:hover, .sidebar a.active { background: #007bff; color: white; }
+        .content { margin-left: 250px; flex: 1; padding: 20px; }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar Injected Here -->
+
+    <div class="content">
+        <!-- Navbar Injected Here -->
+        
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>Edit Channel</h2>
+            <a href="channels.html" class="btn btn-secondary">Back to List</a>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <form id="editChannelForm">
+                    <input type="hidden" name="id" id="channelId">
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Channel Name</label>
+                            <input type="text" class="form-control" name="name" id="name" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Status</label>
+                            <select class="form-select" name="status" id="status">
+                                <option value="active">Active</option>
+                                <option value="inactive">Inactive</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Stream Type</label>
+                            <select class="form-select" name="stream_type" id="stream_type">
+                                <option value="HLS">HLS</option>
+                                <option value="MP3">MP3</option>
+                                <option value="AAC">AAC</option>
+                                <option value="M3U8">M3U8</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Stream URL</label>
+                            <input type="text" class="form-control" name="stream_url" id="stream_url" required>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Change Logo (Optional)</label>
+                        <input type="file" class="form-control" name="logo" id="logoInput">
+                        <div class="mt-2" id="currentLogo">
+                            <!-- Current logo preview -->
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Update Channel</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="js/pages/edit-channel.js"></script>
+</body>
+</html>
