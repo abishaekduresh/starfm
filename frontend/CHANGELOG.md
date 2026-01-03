@@ -4,6 +4,10 @@ All notable changes to the Star FM Frontend will be documented in this file.
 
 ## [Unreleased]
 
+## [1.0.2] - 2026-01-03
+### Changed
+- **Configuration**: Adjusted API rewrite destination to explicitly include `/api` suffix.
+
 ## [1.0.1] - 2026-01-03
 ### Fixed
 - **Configuration**:
