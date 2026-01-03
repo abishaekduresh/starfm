@@ -4,6 +4,14 @@ All notable changes to the Star FM Backend API will be documented in this file.
 
 ## [Unreleased]
 
+## [1.3.0] - 2026-01-03
+### Added
+- **API Filtering**:
+    - Added `type`, `status`, and `search` query parameters to `GET /ads` and `GET /channels`.
+    - Implemented default filtering to exclude 'deleted' records unless explicitly requested.
+- **Routes**:
+    - Verified filter compatibility with `PublicController` for the `/stream` endpoint.
+
 ## [1.2.1] - 2026-01-02
 ### Added
 - **API Security**:

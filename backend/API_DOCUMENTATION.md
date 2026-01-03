@@ -119,7 +119,11 @@ Logs a click event for a specific ad.
 
 ### List Channels
 - **Endpoint**: `GET /channels`
-- **Response**: List of all channels (active/inactive).
+- **Query Parameters**:
+  - `type`: Filter by stream type (e.g., `HLS`)
+  - `status`: Filter by status (`active`, `inactive`, `deleted`). *Default: Excludes deleted*
+  - `search`: Search by name
+- **Response**: List of all channels matching criteria.
 
 ### Get Channel
 - **Endpoint**: `GET /channels/{id}`
@@ -140,6 +144,7 @@ Logs a click event for a specific ad.
 
 ### Delete Channel
 - **Endpoint**: `DELETE /channels/{id}`
+- **Note**: Soft deletes the channel (sets status to 'deleted').
 
 ---
 
@@ -149,6 +154,11 @@ Logs a click event for a specific ad.
 
 ### List Ads
 - **Endpoint**: `GET /ads`
+- **Query Parameters**:
+  - `type`: Filter by ad type (`banner`, `video`, etc.)
+  - `status`: Filter by status (`active`, `inactive`, `deleted`, `expired`). *Default: Excludes deleted*
+  - `search`: Search by name
+
 
 ### Create Ad
 - **Endpoint**: `POST /ads`

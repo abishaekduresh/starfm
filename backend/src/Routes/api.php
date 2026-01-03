@@ -9,6 +9,8 @@ $app->options('/{routes:.+}', function ($request, $response, $args) {
     return $response;
 });
 
+
+
 $app->group('/api', function (RouteCollectorProxy $group) {
     
     // Auth Routes

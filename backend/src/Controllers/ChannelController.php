@@ -17,9 +17,37 @@ class ChannelController
     public function index(Request $request, Response $response)
     {
         $db = $this->container->get('db');
-        // Include soft-deleted if needed, but for now showing active/inactive
-        // If we want to support showing deleted like ads, consistent logic:
-        $stmt = $db->query("SELECT * FROM channels WHERE status != 'deleted' ORDER BY name ASC");
+        
+        $params = $request->getQueryParams();
+        $type = $params['type'] ?? null;
+        $status = $params['status'] ?? null;
+        $search = $params['search'] ?? null;
+
+        $sql = "SELECT * FROM channels WHERE 1=1";
+        $values = [];
+
+        if ($type) {
+            $sql .= " AND stream_type = ?";
+            $values[] = $type;
+        }
+
+        if ($status) {
+            $sql .= " AND status = ?";
+            $values[] = $status;
+        } else {
+            // Default: Hide deleted unless explicitly asked
+            $sql .= " AND status != 'deleted'";
+        }
+
+        if ($search) {
+            $sql .= " AND name LIKE ?";
+            $values[] = "%$search%";
+        }
+
+        $sql .= " ORDER BY name ASC";
+
+        $stmt = $db->prepare($sql);
+        $stmt->execute($values);
         $channels = $stmt->fetchAll();
 
         $response->getBody()->write(json_encode(['channels' => $channels]));

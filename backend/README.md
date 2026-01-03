@@ -7,23 +7,25 @@ The backend is a RESTful API built with **PHP Slim 4**, providing data managemen
 ```
 backend/
 ├── database/
-│   └── db.sql              # Database backup/schema reference
-├── public/                 # Web root
-│   ├── uploads/            # Stored media files (logos, ads)
-│   └── index.php           # Application entry point
+│   └── db.sql             # Database backup/schema reference
+├── public/                # Web root
+│   ├── uploads/           # Stored media files (logos, ads)
+│   └── index.php          # Application entry point
 ├── src/
-│   ├── Controllers/        # Request handlers
+│   ├── Controllers/       # Request handlers
 │   │   ├── AdController.php
 │   │   ├── AuthController.php
 │   │   ├── ChannelController.php
+│   │   ├── DashboardController.php
 │   │   └── PublicController.php
 │   ├── Helpers/
 │   │   └── IdGenerator.php # Unique UUID generator
 │   ├── Middleware/
+│   │   ├── CorsMiddleware.php
 │   │   └── JwtMiddleware.php # Authentication middleware
 │   └── Routes/
-│       └── api.php         # Route definitions
-└── composer.json           # Dependencies
+│       └── api.php        # Route definitions
+└── composer.json          # Dependencies
 ```
 
 ## 🛠 Setup

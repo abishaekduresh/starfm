@@ -47,8 +47,29 @@ class PublicController
             $settings[$s['setting_key']] = $s['setting_value'];
         }
 
-        // Fetch Active Channels (No Categories)
-        $stmtChannels = $db->query("SELECT * FROM channels WHERE status = 'active' ORDER BY name ASC");
+        // Fetch Query Params
+        $params = $request->getQueryParams();
+        $typeFilter = $params['type'] ?? null;
+        $searchFilter = $params['search'] ?? null;
+
+        // Fetch Active Channels (Filtered)
+        $sql = "SELECT * FROM channels WHERE status = 'active'";
+        $values = [];
+
+        if ($typeFilter) {
+            $sql .= " AND stream_type = ?";
+            $values[] = $typeFilter;
+        }
+
+        if ($searchFilter) {
+            $sql .= " AND name LIKE ?";
+            $values[] = "%$searchFilter%";
+        }
+
+        $sql .= " ORDER BY name ASC";
+
+        $stmtChannels = $db->prepare($sql);
+        $stmtChannels->execute($values);
         $channels = $stmtChannels->fetchAll(\PDO::FETCH_ASSOC);
 
         // Process Channels URLs
@@ -64,7 +85,7 @@ class PublicController
 
         // Fetch Active Ads (Filtered by Device Type)
         $sql = "SELECT * FROM ads WHERE status = 'active' 
-                AND (expiry_time IS NULL OR expiry_time = '0000-00-00 00:00:00' OR expiry_time > NOW()) 
+                AND (expiry_time IS NULL OR expiry_time > NOW()) 
                 AND show_on IN (?, 'all')
                 ORDER BY type ASC, id DESC";
         

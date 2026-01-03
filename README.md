@@ -24,10 +24,11 @@ A comprehensive solution for managing radio streams and advertisements for the S
     - `vlucas/phpdotenv`: Environment variable management
 
 ### Frontend
-- **Language**: Vanilla JavaScript (ES6+ Modules)
-- **UI Framework**: Bootstrap 5
+- **Framework**: Next.js 14+ (React)
+- **Styling**: CSS Modules with Global Variables (Light Theme)
 - **Icons**: Bootstrap Icons
-- **Architecture**: Component-based (Sidebar, Navbar) with dynamic DOM manipulation.
+- **State Management**: React Hooks
+- **Data Fetching**: Native Fetch API with Custom Service
 
 ## 📂 Project Structure
 
@@ -37,10 +38,13 @@ A comprehensive solution for managing radio streams and advertisements for the S
 │   ├── public/            # Public entry point (index.php, uploads)
 │   ├── src/               # Source code (Controllers, Middleware, Routes)
 │   └── vendor/            # Composer dependencies
-├── app/                    # Admin Panel Frontend
-│   ├── css/               # Styles
-│   ├── js/                # JavaScript logic (pages, components)
-│   └── *.html             # View templates
+├── frontend/               # Next.js Admin Panel
+│   ├── src/               # Source code
+│   │   ├── app/           # App Router pages (Dashboard, Ads, Channels)
+│   │   ├── components/    # Reusable components
+│   │   └── services/      # API integration
+│   ├── public/            # Static assets
+│   └── next.config.mjs    # Next.js configuration
 ├── schema.sql              # Database schema definition
 └── README.md               # This file
 ```
@@ -51,6 +55,7 @@ A comprehensive solution for managing radio streams and advertisements for the S
 - PHP 8.0 or higher
 - Composer
 - MySQL Database
+- Node.js 18+ and npm
 - Web Server (Apache/Nginx) or PHP built-in server
 
 ### 1. Database Setup
@@ -73,13 +78,22 @@ A comprehensive solution for managing radio streams and advertisements for the S
    ```
 
 ### 3. Frontend Setup
-1. Navigate to the `app` directory.
-2. Update `js/config.js` if your API URL differs from default (`http://localhost:8080/api`).
-3. Serve the frontend files using a static file server (e.g., Live Server, Apache, or Python).
+1. Navigate to the `frontend` directory.
+2. Install dependencies.
+   ```bash
+   cd frontend
+   npm install
+   ```
+3. Update `next.config.mjs` or `.env.local` with your API URL.
+4. Run the development server:
+   ```bash
+   npm run dev
+   ```
+   Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ## 📄 Documentation
 
-- **[Frontend Documentation](app/README.md)**
+- **[Frontend Documentation](frontend/README.md)**
 - **[Backend Documentation](backend/README.md)**
 - **[API Documentation](backend/API_DOCUMENTATION.md)**
 

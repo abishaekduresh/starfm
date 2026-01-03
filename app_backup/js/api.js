@@ -2,6 +2,16 @@ import { API_BASE_URL } from './config.js';
 
 class Api {
     static async request(endpoint, method = 'GET', body = null, files = null) {
+        
+        // Failsafe: Ensure API URL is absolute and correct
+        let baseURL = API_BASE_URL;
+        if (!baseURL || !baseURL.startsWith('http')) {
+            console.warn('API_BASE_URL is relative/improper:', baseURL);
+            // Force Production URL if config is broken
+            baseURL = 'https://starfm.dureshtech.com/backend/public/api'; 
+        }
+
+        console.log('Final API_BASE_URL:', baseURL); 
         const token = localStorage.getItem('token');
         const headers = {};
         
@@ -35,7 +45,7 @@ class Api {
         }
 
         try {
-            const response = await fetch(`${API_BASE_URL}${endpoint}`, options);
+            const response = await fetch(`${baseURL}${endpoint}`, options);
             if (response.status === 401) {
                 // Unauthorized
                 Api.logout();

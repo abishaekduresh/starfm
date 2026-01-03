@@ -24,16 +24,48 @@ class AdController
         $limit = 10;
         $offset = ($page - 1) * $limit;
 
-        $stmt = $db->prepare("SELECT * FROM ads ORDER BY created_at DESC LIMIT ? OFFSET ?");
-        // PDO limit requires integer binding
-        $stmt->bindValue(1, $limit, \PDO::PARAM_INT);
-        $stmt->bindValue(2, $offset, \PDO::PARAM_INT);
-        $stmt->execute();
+        // Filters
+        $type = $params['type'] ?? null;
+        $status = $params['status'] ?? null;
+        $search = $params['search'] ?? null;
+
+        $where = [];
+        $values = [];
+
+        if ($type) {
+            $where[] = "type = ?";
+            $values[] = $type;
+        }
+        
+        if ($status) {
+            $where[] = "status = ?";
+            $values[] = $status;
+        } else {
+            // Default: Hide deleted unless explicitly asked
+            $where[] = "status != 'deleted'";
+        }
+
+        if ($search) {
+            $where[] = "name LIKE ?";
+            $values[] = "%$search%";
+        }
+
+        $whereSql = "";
+        if (!empty($where)) {
+            $whereSql = "WHERE " . implode(" AND ", $where);
+        }
+
+        // Fetch Ads
+        $sql = "SELECT * FROM ads $whereSql ORDER BY created_at DESC LIMIT $limit OFFSET $offset";
+        $stmt = $db->prepare($sql);
+        $stmt->execute($values);
         $ads = $stmt->fetchAll();
 
-        // Count total for pagination
-        $countStmt = $db->query("SELECT COUNT(*) as count FROM ads");
-        $total = $countStmt->fetch()['count'];
+        // Count Total
+        $countSql = "SELECT COUNT(*) as count FROM ads $whereSql";
+        $stmtCount = $db->prepare($countSql);
+        $stmtCount->execute($values);
+        $total = $stmtCount->fetch()['count'];
 
         $response->getBody()->write(json_encode([
             'ads' => $ads,
