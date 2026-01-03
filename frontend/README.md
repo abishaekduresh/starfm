@@ -41,6 +41,8 @@ NEXT_PUBLIC_DEVICE_PLATFORM=web
 
 Or configure directly in `next.config.mjs` if needed for your environment.
 
+> **Note**: The application is configured to load these variables dynamically. If you change them, you must restart the development server (`npm run dev`) for changes to take effect.
+
 ## Deploy on Vercel
 
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.

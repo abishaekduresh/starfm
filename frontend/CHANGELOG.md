@@ -4,6 +4,13 @@ All notable changes to the Star FM Frontend will be documented in this file.
 
 ## [Unreleased]
 
+## [1.0.1] - 2026-01-03
+### Fixed
+- **Configuration**:
+    - Fixed environment variable loading in `next.config.mjs` to correctly read from `.env.local` using `@next/env`.
+    - Removed hardcoded API URLs to ensure full dynamic configuration.
+    - Resolved `SyntaxError` caused by incorrect ESM imports.
+
 ## [1.0.0] - 2026-01-03
 ### Added
 - **Next.js Migration**:

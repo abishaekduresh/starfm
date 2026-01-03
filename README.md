@@ -1,5 +1,7 @@
 # Star FM Admin Panel & API
 
+> **Frontend Version**: v1.0.1 | **Backend Version**: v1.3.0
+
 A comprehensive solution for managing radio streams and advertisements for the Star FM application. This project consists of a PHP Slim 4 REST API backend and a Vanilla JavaScript frontend.
 
 ## 🚀 Features

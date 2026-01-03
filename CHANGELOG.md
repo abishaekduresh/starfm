@@ -14,6 +14,7 @@ See `backend/CHANGELOG.md` and `frontend/CHANGELOG.md` for detailed component ch
 ### Changed
 - **API Enhancements**: Added filtering capabilities to core endpoints (`/ads`, `/channels`).
 - **Project Structure**: Renamed `app` directory to `frontend` (archived old app).
+- **Configuration (v1.0.1)**: Fixed environment variable loading for seamless cloud/local switching.
 
 ## [1.0.0] - 2026-01-01
 ### Added
